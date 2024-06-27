@@ -145,7 +145,6 @@ class HBNBCommand(cmd.Cmd):
                     continue
             setattr(new_instance, key, value)
 
-
         new_instance.save()
         print(new_instance.id)
 
