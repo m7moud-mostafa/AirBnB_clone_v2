@@ -27,10 +27,9 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is None:
             return self.__objects
-        if isinstance(cls, str):
+        if type(cls) == str:
             cls = eval(cls)
-        filtered_objects = \
-            {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
+        filtered_objects = {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
         return filtered_objects
 
     def new(self, obj):
