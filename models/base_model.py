@@ -34,11 +34,9 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        return dictionary
+        """Returns a dictionary containing all keys/values of __dict__"""
+        dict_format = self.__dict__.copy()
+        dict_format["__class__"] = self.__class__.__name__
+        dict_format["created_at"] = dict_format["created_at"].isoformat()
+        dict_format["updated_at"] = dict_format["updated_at"].isoformat()
+        return dict_format
