@@ -24,8 +24,11 @@ class DBStorage:
         password = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
         database = os.getenv('HBNB_MYSQL_DB')
-        self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{database}',
-                                    pool_pre_ping=True)
+        self.__engine = create_engine(
+            f'mysql+mysqldb://{user}:{password}@{host}/{database}',
+            pool_pre_ping=True
+            )
+
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -47,7 +50,6 @@ class DBStorage:
                     objects_dict[key] = obj
         return objects_dict
 
-
     def new(self, obj):
         """Add the object to the current database session"""
         self.__session.add(obj)
@@ -65,6 +67,7 @@ class DBStorage:
         """Create all tables in the database and
         create the current database session"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
